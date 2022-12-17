@@ -1,0 +1,23 @@
+
+<%- include("partials/header"); -%>
+
+<%= console.log('-------------------43434',typeof(postdata)); %>
+<% postdata.forEach(function(post){%>
+    
+    <h1><%= post.title %></h1>
+    <% console.log(post.title);%>
+      <% console.log(post.data.length);%>
+        <% if (post.data.length > 100) { %>
+            <p><%= post.data.substring(0,100)+"..." %> <a href="/posts/<%= post.title %>">Read more
+              <button class="btn btn-primary" type="submit" name="button" style="float: right;">show</button>
+            </a> </p>
+
+            <%} else { %>
+ <p> <%=post.data %> <a href="/posts/<%= post.title%>"><button class="btn btn-primary" type="submit" name="button" style="float: right;">show</button></a></p>
+
+            <% } %>
+               
+            <% }); %>
+	
+	
+	<%- include("partials/fotter"); -%> 
