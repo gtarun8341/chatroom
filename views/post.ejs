@@ -8,12 +8,14 @@
   <button class="btn btn-primary" type="submit" name="deletes" >delete</button>
 </div>
 </form>
+
+
 <% console.log(replycontent);%>
 <%replycontent.forEach(function(post){%>
     
   <h1><%= post.title %></h1>
-  <% console.log(post.repliedtitle);%>
-    <% console.log(post.replied);%>
+  <% console.log(post.repliedtitle+"postejstitle");%>
+    <% console.log(post.replied+"postejsreply");%>
    	<p><%= post.replied %></p>
     	<form action="/modify" method="post">
   <div style="float: right;">
@@ -21,7 +23,7 @@
    		<button class="btn btn-primary" type="delete" value="<%= post.title %>" name="delete" >delete</button>
      	  </div>
           </form>
-        <p> <%= post.replied %></p>
+
   
 
              

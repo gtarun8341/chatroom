@@ -126,60 +126,37 @@ app.post("/compose", function(req, res){
 	res.redirect("/");
   });
 
-app.get("/posts/:postname", function(req, res){
-	var count=0;
-	// const paramtitle=req.params.postname;
-	// console.log(paramtitle+"url");
-	// Postmessage.find({},function(err,found){
-	// 	found.forEach(function(post){
-	// 		console.log(post.title);
-	// 		const storedtitle= post.title;
-			
-	// 		console.log(storedtitle+"stored");
-	// 		if (_.lowerCase(paramtitle)=== _.lowerCase(storedtitle)){
-	// 			console.log("here");
-	// 			Replymessage.find({},function(err,founded){
-	// 				console.log("in the reply mesage outer loop");
-	// 				founded.forEach(function(replystored){
-	// 					if(replystored.repliedtitle===paramtitle && count===1){
-	// 						console.log("this"+replystored.repliedtitle+"thiselse");
-	// 							res.render("post",{title:post.title,content:post.data,replycontent:founded});
-									
-	// 					}
-	// 					else{
-							res.render("post",{title:'adad',content:'aad',replycontent:{replied: 'Reply will show below'}});					
-					// 	}
-					// 	count+=1;
-					// console.log("this "+replystored+" thisif");
-					// res.render("post",{title:post.title,content:post.data,replycontent:founded});
-					// });
-					// founded.forEach(function(replystored){
-					// 	console.log("in the reply mesage inner loop")
-					// 	conReplymessage.find({},function(err,founded){
-					// 		console.log("in the reply mesage outer loop");
-					// 		founded.forEach(function(replystored){
-					// 			if(replystored.repliedtitle===paramtitle && count===1){
-					// 				console.log("this"+replystored.repliedtitle+"thiselse");
-					// 					res.render("post",{title:post.title,content:post.data,replycontent:founded});
-											
-					// 			}sole.log(replystored);
-					// 	if(replystored.repliedtitle===paramtitle){
-					// 		console.log("this ----- "+replystored.repliedtitle+" ----- thiselse");
-					// 		res.render("post",{title:post.title,content:post.data,replycontent:founded});
-					// 	}
-				// 	});
-				// });
-	// 		}
-	// 	});
 
-	// });
+
+  app.get("/posts/:postname", function(req, res){
+	const paramtitle=req.params.postname;
+	console.log(paramtitle+"url");
+	Postmessage.find({title:paramtitle},function(err,found){
+		if(err){
+			console.log(err);
+		}
+		else{
+			console.log("founded data",found)
+			found.forEach(function(post){
+				Replymessage.find({repliedtitle:paramtitle},function(err,founded){
+					found.forEach(function(replies){
+						console.log("replies")
+						res.render("post",{title:post.title,content:post.data,replycontent:founded});
+					});
+				});
+				// res.render("post",{title:post.title,content:post.data,replycontent:{replied:"reply will shown in below"}});
+			});
+		}
+	});
 });
+
 
 
 // app.get("/posts/:postname", function(req, res){
 // 	const paramtitle=req.params.postname;
 // 	console.log(paramtitle+"url");
-// 	Postmessage.find({},function(err,found){
+// 	Postmessage.find({title:"paramtitle"},function(err,found){
+
 // 		found.forEach(function(post){
 // 			console.log(post.title);
 // 			const storedtitle= post.title;
@@ -240,7 +217,7 @@ app.get("/posts/:postname", function(req, res){
 
 // 	});
 // });
-// /
+
 // 	// else{
 // 	// 	console.log("not found");
 // 	//   }
